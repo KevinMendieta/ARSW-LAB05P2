@@ -6,39 +6,45 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="/webjars/jquery/jquery.min.js"></script>
     	<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    	<script src="js/apimock.js"></script>
-		<script src="js/app.js"></script>
+    	<script src="js/apimock.js?v=1"></script>
+		<script src="js/app.js?v=1"></script>
 		<link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
-    	<!--<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+    	<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	</head>
 
-	<body>
+	<body id="body" onload="Module.init()">
 		<h1>Blueprints</h1>
 		<br>
-		<form id="getBlueprintsForm">
-			Author Name:
-			<input type="text" id="authorName" class="label" placeholder="Author Name">
-			<input type="button" class="button" value="Get Blueprints" onclick="Module.updateAuthorName(document.getElementById('authorName').value); Module.getBlueprintsByAuthorName(document.getElementById('authorName').value);">
-		</form>
-		<br>
-		<form id="showBlueprintsForm">
-			<h3 id="authorNameShow"></h3>
-			<table id="myTable">
-				<thead>
-					<tr>
-	    				<th>Blueprint Name</th>
-	    				<th>Points</th>
-	    				<th>Draw</th>
-	  				</tr>
-				</thead>
-				<tbody>
-				</tbody>
-  			</table>
-  			<h3 id="totalPoints"></h3>
-		</form>
-		<form id="showCanvas">
-			<h3 id="currentBlueprintName"></h3>
-			<canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
-		</form>
+		<div class="row">
+			<div class="col-sm-6">
+				<form id="getBlueprintsForm">
+					Author Name:
+					<input type="text" id="authorName" class="labell" placeholder="Author Name">
+					<input type="button" class="button" value="Get Blueprints" onclick="Module.updateAuthorName(document.getElementById('authorName').value); Module.getBlueprintsByAuthorName(document.getElementById('authorName').value);">
+				</form>
+				<br>
+				<form id="showBlueprintsForm">
+					<h3 id="authorNameShow"></h3>
+					<table id="myTable">
+						<thead>
+							<tr>
+			    				<th class="myTh">Blueprint Name</th>
+			    				<th class="myTh">Points</th>
+			    				<th class="myTh">Draw</th>
+			  				</tr>
+						</thead>
+						<tbody>
+						</tbody>
+		  			</table>
+		  			<h3 id="totalPoints"></h3>
+				</form>
+			</div>
+			<div class="col-sm-6">
+				<form id="showCanvas">
+					<h3 id="currentBlueprintName"></h3>
+					<canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>
