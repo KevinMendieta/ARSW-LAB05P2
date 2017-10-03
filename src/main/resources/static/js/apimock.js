@@ -45,7 +45,9 @@ apiclient = (function(){
 				type : 'PUT',
 				data : JSON.stringify(blueprint),
 				contentType: "application/json"
-			}).then(getBlueprintsByAuthor(blueprint.author, callback));
+			}).then(function(){
+				$.get("/blueprints/" + blueprint.author, callback);
+			});
 		}
 	};
 })();
