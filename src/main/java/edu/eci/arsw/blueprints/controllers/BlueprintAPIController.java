@@ -106,15 +106,13 @@ public class BlueprintAPIController {
     }*/
     
     @RequestMapping(method = RequestMethod.PUT, path = "/{authorName}/{bpname}")
-    public ResponseEntity<?> updateBlueprintPoints(@PathVariable String authorName, @PathVariable String bpname, @RequestBody List<Point> points){
+    public ResponseEntity<?> updateBlueprintPoints(@RequestBody Blueprint blueprint){
         try{
-            blueprintServices.updateBlueprint(authorName, bpname, points);
+            blueprintServices.updateBlueprint(blueprint);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (BlueprintNotFoundException e){
-            Blueprint bp = new Blueprint(authorName, bpname);
-            bp.putPoints(points);
             try {
-                blueprintServices.addNewBlueprint(bp);
+                blueprintServices.addNewBlueprint(blueprint);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (BlueprintPersistenceException ex) {
                 //Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);

@@ -9,6 +9,7 @@ var Module = (function() {
         currentBlueprint,
         canvas,
         ctx;
+
     function getOffset(obj) {
         var offsetLeft = 0;
         var offsetTop = 0;
@@ -22,23 +23,33 @@ var Module = (function() {
         } while(obj = obj.offsetParent );
         return {left: offsetLeft, top: offsetTop};
     }
+
     var str = function(tag){ return '"' + tag + '"';};
+
     var cleanRows = function(){ $('#myTable tbody').find("tr").remove();};
+
     var mapBlueprints = function(bprints){
+        selectedBp = false;
         cleanRows();
         document.getElementById("authorNameShow").innerHTML = authorName + " Blueprints:";
+
         blueprints = bprints.map(function(blueprint){
             return {blueprintName: blueprint.name, totalPoints:blueprint.points.length};
         });
+
         blueprints.map(function(blueprint){
             let content = '<tr><td class="myTd">' + blueprint.blueprintName + '</td><td class="myTd">' + blueprint.totalPoints + '</td><td class="myTd">' + "<input type='button' class='button' value='draw' onclick='Module.getBlueprintsByAuthorNameAndBlueprintName(" + str(authorName) + "," + str(blueprint.blueprintName) + ")'></td></tr>";
 			$('#myTable tbody').append(content);
         });
+
         document.getElementById("totalPoints").innerHTML = "Total points: " + blueprints.reduce(function(total, blueprint){
                 return total + blueprint.totalPoints;
         }, 0);
+
     };
+
     var drawBlueprint = function(bprint){
+        selectedBp = true;
         currentBlueprint = bprint;
         document.getElementById("currentBlueprintName").innerHTML = "Current Blueprint: " + bprint.name;
         ctx.fillRect(0,0,500,500);
@@ -55,6 +66,7 @@ var Module = (function() {
         ctx.stroke();
         ctx.moveTo(0,0);
     };
+
     var eventHandler = function(event) {
         if (selectedBp){
             offset = getOffset(canvas);
@@ -64,18 +76,21 @@ var Module = (function() {
             drawBlueprint(currentBlueprint);
         }
     }
+
     return {
         updateAuthorName: function(newAuthorName){
             authorName = newAuthorName;
         },
+
         getBlueprintsByAuthorName: function(newAuthorName){
-            selectedBp = false;
             api.getBlueprintsByAuthor(newAuthorName, mapBlueprints);
         },
+
         getBlueprintsByAuthorNameAndBlueprintName: function(newAuthorName, newBlueprintName){
-            selectedBp = true;
             api.getBlueprintsByNameAndAuthor(newAuthorName, newBlueprintName, drawBlueprint);
-        }, init: function(){
+        },
+
+        init: function(){
             canvas = document.getElementById("myCanvas");
             ctx = canvas.getContext("2d");
             if (window.PointerEvent) {
@@ -83,6 +98,14 @@ var Module = (function() {
             } else {
                 canvas.addEventListener("mousedown", eventHandler);
             }
+        },
+
+        updateCurrentBlueprint : function(){
+            if (selectedBp){
+                api.updateAuthorBlueprint(currentBlueprint, mapBlueprints);
+            }
         }
+
     };
+
 })();

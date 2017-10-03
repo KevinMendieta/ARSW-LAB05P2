@@ -31,12 +31,21 @@ apimock=(function(){
 
 apiclient = (function(){
 	return {
-		getBlueprintsByAuthor:function(authname,callback){
+		getBlueprintsByAuthor : function(authname,callback){
 			$.get("/blueprints/" + authname, callback);
 		},
 
-		getBlueprintsByNameAndAuthor:function(authname,bpname,callback){
+		getBlueprintsByNameAndAuthor : function(authname,bpname,callback){
 			$.get("/blueprints/" + authname + "/" + bpname, callback);
+		},
+
+		updateAuthorBlueprint : function(blueprint, callback){
+			$.ajax({
+				url : "/blueprints/" + blueprint.author + "/" + blueprint.name,
+				type : 'PUT',
+				data : JSON.stringify(blueprint),
+				contentType: "application/json"
+			}).then(getBlueprintsByAuthor(blueprint.author, callback));
 		}
 	};
 })();

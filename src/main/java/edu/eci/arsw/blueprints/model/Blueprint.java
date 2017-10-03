@@ -37,6 +37,10 @@ public class Blueprint {
         }
     }
     
+    public void replacePoints(List<Point> points){
+        this.points = points;
+    }
+    
     public String getName() {
         return name;
     }

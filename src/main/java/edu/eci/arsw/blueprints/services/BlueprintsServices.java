@@ -58,25 +58,12 @@ public class BlueprintsServices {
     }
     
     /**
-     * Update a blueprint with a given point.
-     * @param author blueprint's author name.
-     * @param name blueprint's name
-     * @param point the new point in the blueprint. 
+     * Updates a blueprint.
+     * @param blueprint the new blueprint with the new content.
      * @throws BlueprintNotFoundException if the blueprint does not exist.
      */
-    public void updateBlueprint(String author,String name, Point point) throws BlueprintNotFoundException{
-        bpp.updateBlueprint(author, name, point);
+    public void updateBlueprint(Blueprint blueprint) throws BlueprintNotFoundException{
+        bpp.updateBlueprint(blueprint);
     }
-    
-    /**
-     * Update a blueprint with given points.
-     * @param author blueprint's author name.
-     * @param name blueprint's name
-     * @param points List with the new points for the blueprint.
-     * @throws BlueprintNotFoundException if the blueprint does not exist.
-     */
-    public void updateBlueprint(String author,String name, List<Point> points) throws BlueprintNotFoundException {
-        bpp.updateBlueprint(author, name, points);
-    }
-    
+
 }

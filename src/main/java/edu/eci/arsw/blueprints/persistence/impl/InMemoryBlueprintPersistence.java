@@ -92,24 +92,12 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }
     
     @Override
-    public synchronized void updateBlueprint(String authorName, String blueprintName, Point point) throws BlueprintNotFoundException {
-        if (blueprints.containsKey(new Tuple<>(authorName, blueprintName))) {
-            blueprints.get(new Tuple<>(authorName, blueprintName)).addPoint(point);
+    public synchronized void updateBlueprint(Blueprint blueprint) throws BlueprintNotFoundException {
+        if (blueprints.containsKey(new Tuple<>(blueprint.getAuthor(), blueprint.getName()))) {
+            blueprints.get(new Tuple<>(blueprint.getAuthor(), blueprint.getName())).replacePoints(blueprint.getPoints());
         } else {
-            throw new BlueprintNotFoundException("There is no blueprint whith the given data: " + authorName + ", " + blueprintName);
+            throw new BlueprintNotFoundException("There is no blueprint whith the given data: " + blueprint.getAuthor() + ", " + blueprint.getName());
         } 
-    }
-    
-    @Override
-    public synchronized void updateBlueprint(String authorName, String blueprintName, List<Point> points) throws BlueprintNotFoundException {
-        if (blueprints.containsKey(new Tuple<>(authorName, blueprintName))) {
-            Blueprint bp = blueprints.get(new Tuple<>(authorName, blueprintName));
-            for (Point point : points) {
-                 bp.addPoint(point);
-            }
-        } else {
-            throw new BlueprintNotFoundException("There is no blueprint whith the given data: " + authorName + ", " + blueprintName);
-        }
     }
 
 }
