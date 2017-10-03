@@ -48,6 +48,15 @@ apiclient = (function(){
 			}).then(function(){
 				$.get("/blueprints/" + blueprint.author, callback);
 			});
+		},
+
+		deleteBlueprint : function(blueprint, callback){
+			$.ajax({
+				url : "/blueprints/" + blueprint.author + "/" + blueprint.name,
+				type : 'DELETE'
+			}).then(function(){
+				$.get("/blueprints/" + blueprint.author, callback);
+			});
 		}
 	};
 })();

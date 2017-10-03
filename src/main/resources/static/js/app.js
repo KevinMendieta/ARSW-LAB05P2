@@ -104,8 +104,23 @@ var Module = (function() {
             if (selectedBp){
                 api.updateAuthorBlueprint(currentBlueprint, mapBlueprints);
             }
-        }
+        },
 
+        createNewBlueprint : function(bpName){
+            if (bpName != "") {
+                selectedBp = true;
+                currentBlueprint = {"author" : authorName, "points" : [], "name" : bpName};
+                drawBlueprint(currentBlueprint);
+            } else {
+                alert("Please put a name for the new Blueprint");
+            }            
+        },
+
+        deleteCurrentBlueprint(){
+            if (selectedBp) {
+                api.deleteBlueprint(currentBlueprint, mapBlueprints);
+            }
+        }
     };
 
 })();

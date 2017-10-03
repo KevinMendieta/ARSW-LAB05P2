@@ -40,11 +40,14 @@
 				</form>
 			</div>
 			<div class="col-sm-6">
+				<input type="button" class="button" value="Create Blueprint" onclick="Module.createNewBlueprint(document.getElementById('bpName').value)">
+				<input type="text" id="bpName" class="labell" placeholder="Blueprint name">
 				<form id="showCanvas">
 					<h3 id="currentBlueprintName"></h3>
 					<canvas id="myCanvas" width="500" height="300" style="border:1px solid #000000;"></canvas>
 				</form>
 				<input type="button" class="button" value="Save/Update" onclick="Module.updateCurrentBlueprint()">
+				<input type="button" class="button" value="Delete Blueprint" onclick="Module.deleteCurrentBlueprint()">
 			</div>
 		</div>
 	</body>

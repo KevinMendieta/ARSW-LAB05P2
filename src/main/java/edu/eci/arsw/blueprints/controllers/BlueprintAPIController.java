@@ -120,5 +120,15 @@ public class BlueprintAPIController {
             }
         }
     }
+    
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{authorName}/{bpname}")
+    public ResponseEntity<?> deleteBlueprint(@RequestBody Blueprint blueprint){
+        try{
+            blueprintServices.deleteBlueprint(blueprint);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (BlueprintNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
 
 }

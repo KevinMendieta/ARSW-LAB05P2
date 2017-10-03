@@ -25,7 +25,7 @@ public interface BlueprintsPersistence {
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException;
     
     /**
-     * 
+     * Take a specific blueprint.
      * @param author blueprint's author
      * @param bprintname blueprint's name
      * @return the blueprint of the given name and author
@@ -53,5 +53,13 @@ public interface BlueprintsPersistence {
      * @throws BlueprintNotFoundException if the blueprint does not exist.
      */
     public void updateBlueprint(Blueprint blueprint) throws BlueprintNotFoundException;
+    
+    /**
+     * Deletes a blueprint.
+     * @param author blueprint's author
+     * @param bprintname blueprint's name
+     * @throws BlueprintNotFoundException if the blueprint does not exist.
+     */
+    public void deleteBlueprint(String author, String bprintname) throws BlueprintNotFoundException;
 
 }
