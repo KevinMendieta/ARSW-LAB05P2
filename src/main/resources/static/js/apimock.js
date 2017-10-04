@@ -31,12 +31,22 @@ apimock=(function(){
 
 apiclient = (function(){
 	return {
-		getBlueprintsByAuthor : function(authname,callback){
-			$.get("/blueprints/" + authname, callback);
+		getBlueprintsByAuthor : function(authname, callback){
+			$.get("/blueprints/" + authname).then(
+				callback,
+				function(response){
+					alert(response.responseText);
+				}
+			);
 		},
 
-		getBlueprintsByNameAndAuthor : function(authname,bpname,callback){
-			$.get("/blueprints/" + authname + "/" + bpname, callback);
+		getBlueprintsByNameAndAuthor : function(authname, bpname, callback){
+			$.get("/blueprints/" + authname + "/" + bpname).then(
+				callback,
+				function(response){
+					alert(response.responseText);
+				}
+			);
 		},
 
 		updateAuthorBlueprint : function(blueprint, callback){
@@ -45,18 +55,44 @@ apiclient = (function(){
 				type : 'PUT',
 				data : JSON.stringify(blueprint),
 				contentType: "application/json"
-			}).then(function(){
-				$.get("/blueprints/" + blueprint.author, callback);
-			});
+			}).then(
+				function(){
+					$.get("/blueprints/" + blueprint.author, callback);
+				},
+				function(response){
+					alert(response.responseText);
+				}
+			);
+		},
+
+		createBlueprint : function(blueprint, callback){
+			$.ajax({
+				url : "/blueprints",
+				type : 'POST',
+				data : JSON.stringify(blueprint),
+				contentType: "application/json"
+			}).then(
+				function(){
+					$.get("/blueprints/" + blueprint.author, callback);
+				},
+				function(response){
+					alert(response.responseText);
+				}
+			);
 		},
 
 		deleteBlueprint : function(blueprint, callback){
 			$.ajax({
 				url : "/blueprints/" + blueprint.author + "/" + blueprint.name,
 				type : 'DELETE'
-			}).then(function(){
-				$.get("/blueprints/" + blueprint.author, callback);
-			});
+			}).then(
+				function(){
+					$.get("/blueprints/" + blueprint.author, callback);
+				},
+				function(response){
+					alert(response.responseText);
+				}
+			);
 		}
 	};
 })();

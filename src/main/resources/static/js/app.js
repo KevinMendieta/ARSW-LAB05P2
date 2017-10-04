@@ -3,6 +3,7 @@
 var Module = (function() {
     var api = apiclient,
         selectedBp = false,
+        createdBp = false,
         offset,
 	    authorName,
         blueprints,
@@ -83,7 +84,11 @@ var Module = (function() {
         },
 
         getBlueprintsByAuthorName: function(newAuthorName){
-            api.getBlueprintsByAuthor(newAuthorName, mapBlueprints);
+            if (authorName != ""){
+                api.getBlueprintsByAuthor(newAuthorName, mapBlueprints);    
+            } else {
+                alert("Please put an actor name");
+            }
         },
 
         getBlueprintsByAuthorNameAndBlueprintName: function(newAuthorName, newBlueprintName){
@@ -101,14 +106,20 @@ var Module = (function() {
         },
 
         updateCurrentBlueprint : function(){
-            if (selectedBp){
+            if (selectedBp && !createdBp){
                 api.updateAuthorBlueprint(currentBlueprint, mapBlueprints);
+            }else if(createdBp){
+                api.createBlueprint(currentBlueprint, mapBlueprints);
+                createdBp = false;
+            }else {
+                alert("Please select or create a blueprint");
             }
         },
 
         createNewBlueprint : function(bpName){
-            if (bpName != "") {
+            if (bpName != "" && authorName != "") {
                 selectedBp = true;
+                createdBp = true;
                 currentBlueprint = {"author" : authorName, "points" : [], "name" : bpName};
                 drawBlueprint(currentBlueprint);
             } else {
