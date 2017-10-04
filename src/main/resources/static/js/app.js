@@ -113,12 +113,13 @@ var Module = (function() {
                 drawBlueprint(currentBlueprint);
             } else {
                 alert("Please put a name for the new Blueprint");
-            }            
+            }
         },
 
         deleteCurrentBlueprint(){
             if (selectedBp) {
                 api.deleteBlueprint(currentBlueprint, mapBlueprints);
+                ctx.fillRect(0,0,500,500);
             }
         }
     };

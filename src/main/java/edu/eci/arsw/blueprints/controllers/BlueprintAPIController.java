@@ -122,9 +122,9 @@ public class BlueprintAPIController {
     }
     
     @RequestMapping(method = RequestMethod.DELETE, path = "/{authorName}/{bpname}")
-    public ResponseEntity<?> deleteBlueprint(@RequestBody Blueprint blueprint){
+    public ResponseEntity<?> deleteBlueprint(@PathVariable String authorName, @PathVariable String bpname){
         try{
-            blueprintServices.deleteBlueprint(blueprint);
+            blueprintServices.deleteBlueprint(authorName, bpname);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (BlueprintNotFoundException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
